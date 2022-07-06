@@ -1,0 +1,38 @@
+table {
+  margin: 0 auto;
+  min-width: 500px;
+}
+
+table button {
+  background-color: crimson;
+  color: var(--text);
+}
+
+td {
+  min-width: 200px;
+  text-align: center;
+}
+
+#invoice {
+  text-align: center;
+}
+
+#NoItems {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+tbody {
+  min-width: 500px;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+#totalValue {
+  text-align: right;
+}

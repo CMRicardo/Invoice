@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoices</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./images/favicon-16x16.png"
+    />
+    <script src="./scripts.js" defer type="module"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Create an invoice 📝</h1>
+
+      <form name="InvoiceForm" id="InvoiceForm">
+        <label for="itemName">Item Name *</label><br />
+        <input type="text" required id="itemName" />
+        <br />
+        <label for="itemPrice">Price USD $ *</label><br />
+        <input type="number" min="1" required id="itemPrice" />
+        <br />
+        <button>Add line</button>
+      </form>
+
+      <section id="NoItems">
+        <h2>Add items in the form above</h2>
+        <h4>No items in the invoice</h4>
+      </section>
+
+      <section id="invoice" class="hidden">
+        <h2>Invoice</h2>
+        <table>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" id="totalValue"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+    </main>
+    <footer>Made with ❤️ by Ricardo Corrales</footer>
+  </body>
+</html>

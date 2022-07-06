@@ -5,7 +5,7 @@ table {
 
 table button {
   background-color: crimson;
-  color: var(--text);
+  color: #fff;
 }
 
 td {

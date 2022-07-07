@@ -5,7 +5,7 @@ const NoItems = document.querySelector('#NoItems')
 const invoice = document.querySelector('#invoice')
 const rows = document.querySelector('tbody')
 const totalValue = document.querySelector('#totalValue')
-let invoiceItems = []
+let invoiceItems = JSON.parse(localStorage.getItem('invoiceItems')) ?? []
 
 const toggleClasses = () => {
   if (!rows.childElementCount) {
@@ -15,34 +15,6 @@ const toggleClasses = () => {
     invoice.classList.remove('hidden')
     NoItems.classList.add('hidden')
   }
-}
-
-const handleDelete = (evt) => {
-  const currentButton = evt.target
-  const currentTd = currentButton.parentElement
-  const activeRow = currentTd.parentElement
-  const currentPrice = Number(activeRow.childNodes[2].innerText.split('$')[1])
-  const currentName = activeRow.childNodes[1].innerText
-  const value = { name: currentName, price: currentPrice }
-
-  invoiceItems = invoiceItems.filter(item => {
-    return item.name !== value.name && item.price !== value.price
-  })
-
-  updateTotal()
-  activeRow.remove()
-
-  toggleClasses()
-}
-
-const updateTotal = () => {
-  let total = 0
-
-  invoiceItems.forEach(({ price }) => {
-    total += price
-  })
-
-  totalValue.innerText = `USD $${total}`
 }
 
 const createNewRow = ({ name, price }) => {
@@ -65,12 +37,50 @@ const createNewRow = ({ name, price }) => {
   rows.appendChild(newRow)
 }
 
+const handleDelete = (evt) => {
+  const currentButton = evt.target
+  const currentTd = currentButton.parentElement
+  const activeRow = currentTd.parentElement
+  const currentPrice = Number(activeRow.childNodes[2].innerText.split('$')[1])
+  const currentName = activeRow.childNodes[1].innerText
+  const value = { name: currentName, price: currentPrice }
+
+  invoiceItems = invoiceItems.filter(item => {
+    return item.name !== value.name && item.price !== value.price
+  })
+  localStorage.setItem('invoiceItems', JSON.stringify(invoiceItems))
+  updateTotal()
+  activeRow.remove()
+
+  toggleClasses()
+}
+
+const updateTotal = () => {
+  let total = 0
+
+  invoiceItems.forEach(({ price }) => {
+    total += price
+  })
+
+  totalValue.innerText = `USD $${total}`
+}
+
+if (invoiceItems) {
+  console.log(invoiceItems)
+  invoiceItems.forEach(({ name, price }) => {
+    createNewRow({ name, price })
+  })
+  toggleClasses()
+  updateTotal()
+}
+
 const handleOnSubmit = (evt) => {
   evt.preventDefault()
   const name = itemName.value
   const price = Number(itemPrice.value)
 
-  invoiceItems.push({ name, price })
+  invoiceItems = [...invoiceItems, { name, price }]
+  localStorage.setItem('invoiceItems', JSON.stringify(invoiceItems))
   createNewRow({ name, price })
 
   InvoiceForm.reset()

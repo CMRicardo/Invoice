@@ -45,7 +45,7 @@ const handleDelete = (evt) => {
   const currentName = activeRow.childNodes[1].innerText
   const value = { name: currentName, price: currentPrice }
 
-  invoiceItems = invoiceItems.filter(item => {
+  invoiceItems = invoiceItems.filter((item) => {
     return item.name !== value.name && item.price !== value.price
   })
   localStorage.setItem('invoiceItems', JSON.stringify(invoiceItems))
@@ -66,7 +66,6 @@ const updateTotal = () => {
 }
 
 if (invoiceItems) {
-  console.log(invoiceItems)
   invoiceItems.forEach(({ name, price }) => {
     createNewRow({ name, price })
   })
